@@ -24,6 +24,9 @@ public:
     operator double();
 
     std::string to_string();
+    
+    static Fraction approximate(float f, float tolerance = 0.01);
+    static Fraction approximate(double f, double tolerance = 0.01);
 };
 
 std::string to_string(Fraction f);

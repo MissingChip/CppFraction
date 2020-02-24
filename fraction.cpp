@@ -82,3 +82,46 @@ string Fraction::to_string(){
 string to_string(Fraction f){
     return to_string(f.num)+"/"+to_string(f.den);
 }
+
+Fraction Fraction::approximate(float f, float tolerance){
+    bool neg = f < 0;
+    f = abs(f);
+    float num = 1;
+    float den = 1;
+    float high = f*tolerance;
+    float low = f/tolerance;
+
+    while(num/den > high || num/den < low){
+        while(num/den > f*tolerance){
+            den++;
+        }
+        while(num/den < f/tolerance){
+            num++;
+        }
+    }
+    if(neg){
+        return Fraction(-num, den);
+    }
+    return Fraction(num, den);
+}
+Fraction Fraction::approximate(double f, double tolerance){
+    bool neg = f < 0;
+    f = abs(f);
+    double num = 1;
+    double den = 1;
+    double high = f*(1+tolerance);
+    double low = f/(1+tolerance);
+
+    while(num/den > high || num/den < low){
+        while(num/den > high){
+            den++;
+        }
+        while(num/den < low){
+            num++;
+        }
+    }
+    if(neg){
+        return Fraction(-num, den);
+    }
+    return Fraction(num, den);
+}
